@@ -1,7 +1,22 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const product_1 = require("./modules/product");
-const calc_1 = require("./modules/calc");
-const result = (0, calc_1.calcTotalPrice)(product_1.product);
-console.log(result);
-const arrObj = [{ name: "Макс" }];
+const div = (a, b, rounding) => {
+    const res = a / b;
+    if (rounding) {
+        return Math.round(res);
+    }
+    return res;
+};
+div(15, 4, true);
+div(15, 3, false);
+div(10, 2);
+const fetcData = (res) => {
+    if (res.status === "pending") {
+        res.status;
+    }
+    if (res.status === "success") {
+        res.data;
+    }
+    if (res.status === "failed") {
+        res.error;
+    }
+};

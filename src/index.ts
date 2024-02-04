@@ -1,9 +1,55 @@
-import { product } from "./modules/product";
-import { calcTotalPrice } from "./modules/calc";
+const div = (a: number, b: number, rounding?: boolean) => {
+  const res = a / b;
 
-const result = calcTotalPrice(product);
-console.log(result);
+  if (rounding) {
+    return Math.round(res);
+  }
 
-const arrObj: {
-  name: String;
-}[] = [{ name: "Макс" }];
+  return res;
+};
+
+div(15, 4, true);
+
+div(15, 3, false);
+div(10, 2);
+
+type Student = {
+  firstName: string;
+  lastName: string;
+  age: number;
+  bornCity?: string;
+};
+
+type HttpResponsePending = {
+  status: "pending";
+};
+
+type HttpResponseSuccess = {
+  status: "success";
+  data?: [];
+};
+
+type HttpResponseFailed = {
+  status: "failed";
+
+  error?: string;
+};
+
+type HttpResponse =
+  | HttpResponsePending
+  | HttpResponseSuccess
+  | HttpResponseFailed;
+
+const fetcData = (res: HttpResponse): void => {
+  if (res.status === "pending") {
+    res.status;
+  }
+
+  if (res.status === "success") {
+    res.data;
+  }
+
+  if (res.status === "failed") {
+    res.error;
+  }
+};
