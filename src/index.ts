@@ -1,55 +1,65 @@
-const div = (a: number, b: number, rounding?: boolean) => {
-  const res = a / b;
+const n = 10;
+const s: string = n.toString();
 
-  if (rounding) {
-    return Math.round(res);
-  }
+const str = "ts";
+const num1: number = +str;
+const num2: number = parseInt(str);
 
-  return res;
-};
+const is: boolean = !str;
+const is2: boolean = !!str;
 
-div(15, 4, true);
-
-div(15, 3, false);
-div(10, 2);
-
-type Student = {
-  firstName: string;
-  lastName: string;
+type animal = {
+  name: string;
   age: number;
-  bornCity?: string;
+  breed: string;
 };
 
-type HttpResponsePending = {
-  status: "pending";
+const cat = {
+  name: "Стейси",
+  age: 16,
+  breed: "simderial cat",
+} as animal;
+
+type pet = {
+  name: string;
+  home: string;
+  owner: {
+    firstname: string;
+  };
 };
 
-type HttpResponseSuccess = {
-  status: "success";
-  data?: [];
+// const myCat: pet = {
+//   ...cat,
+//   home: "Малиновая",
+//   owner: {
+//     firstname: "Макс",
+//   },
+// };
+
+// console.log("myCat: ", myCat);
+
+const animalToPet = (animal: animal, home: string, nameOwner: string): pet => ({
+  name: animal.name,
+  home,
+  owner: {
+    firstname: nameOwner,
+  },
+});
+
+const myCat: pet = animalToPet(cat, "Малиновая", "Макс");
+console.log("myCat: ", myCat);
+
+interface Animal {
+  name: string;
+}
+
+interface AnimalWithGenius extends Animal {
+  age: number;
+}
+
+const cat2: AnimalWithGenius = {
+  name: "Стайси",
+  age: 16,
 };
 
-type HttpResponseFailed = {
-  status: "failed";
-
-  error?: string;
-};
-
-type HttpResponse =
-  | HttpResponsePending
-  | HttpResponseSuccess
-  | HttpResponseFailed;
-
-const fetcData = (res: HttpResponse): void => {
-  if (res.status === "pending") {
-    res.status;
-  }
-
-  if (res.status === "success") {
-    res.data;
-  }
-
-  if (res.status === "failed") {
-    res.error;
-  }
-};
+console.log(cat2);
