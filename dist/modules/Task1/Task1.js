@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Job_1 = require("./Job");
+const Person_1 = require("./Person");
+const engineer = new Job_1.Job("engineer", 100000);
+const builder = new Job_1.Job("builder", 90000);
+const driver = new Job_1.Job("driver", 80000);
+const workerOne = new Person_1.Person("Serg");
+workerOne.work();
+const workerTwo = new Person_1.Person("Nik", builder);
+workerTwo.work();
+const workerThree = new Person_1.Person("Tim", driver);
+workerThree.work();
+workerOne.job = engineer;
+workerOne.work();
