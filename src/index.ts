@@ -1,164 +1,215 @@
-enum StatusStudent {
-  enrollee = "enrollee",
-  student = "student",
-  graduete = "graduete",
-  bachelor = "bachelor",
+{
+  const log = <T>(val: T): T => {
+    console.log(val);
+    return val;
+  };
+
+  // log("string");
+  // log<string>("string"); //указание конкретного типа generic
+  // log(5);
+  // log<boolean>(!5);
+}
+{
+  const log = <T, B>(val: T, val2: B): T => {
+    console.log(val, val2);
+    return val;
+  };
+
+  // log("string", 10);
+  // log<string, string>("string", "str"); //указание конкретного типа generic
+  // log(5, true);
+  // log<boolean, number>(!5, 5);
+}
+{
+  const arr: Array<string> = ["a", "b", "c"];
 }
 
-abstract class Person {
-  age?: number;
-  protected id: string =
-    Math.random().toString(32).substring(2, 6) +
-    Date.now().toString().substring(9);
-  protected createAt: Date = new Date();
-  protected updateAt?: Date;
+{
+  // функция фильтрации
+  const filterArr = <T>(arr: T[], exclude: T[]): T[] => {
+    return arr.filter((item) => !exclude.includes(item));
+  };
 
-  constructor(name: string);
-  constructor(name: string, age: number | undefined);
-  constructor(public readonly name: string, age?: number | undefined) {
-    if (typeof age === "number") {
-      this.age = age;
-    }
-  }
-
-  getInfo(): string {
-    if (this.age) {
-      return `${this.name}, возраст ${this.age}`;
-    }
-
-    return this.name;
-  }
-
-  abstract logger(): void;
-}
-class Student extends Person {
-  static readonly scholl: string = "METHED";
-  static count: number;
-  status: StatusStudent = StatusStudent.enrollee;
-  course?: string;
-  _module: number = 0;
-
-  // перегрузка конструктора
-  constructor(name: string);
-  constructor(name: string, course: string);
-  constructor(name: string, age: number);
-  constructor(name: string, course: string, age: number);
-  constructor(
-    public name: string,
-    courseOrAge?: string | number,
-    age?: number
-  ) {
-    let ageOrUndefined: number | undefined;
-
-    if (typeof courseOrAge === "number") {
-      ageOrUndefined = courseOrAge;
-    }
-
-    if (age) {
-      ageOrUndefined = age;
-    }
-
-    super(name, ageOrUndefined);
-    if (typeof courseOrAge === "string") {
-      this.course = courseOrAge;
-      this.changeStatus(StatusStudent.student);
-    }
-
-    Student.count++;
-  }
-
-  private changeUpdateDate(): void {
-    this.updateAt = new Date();
-  }
-
-  set module(module: number) {
-    this._module = module;
-    this.changeUpdateDate();
-  }
-
-  changeStatus(status: StatusStudent): void {
-    this.status = status;
-    this.changeUpdateDate();
-  }
-
-  // перегрузка метода
-  changeInfo(course: string): void;
-  changeInfo(module: number): void;
-  changeInfo(course: string, module: number): void;
-  changeInfo(courseOrModule: string | number, module?: number): void {
-    if (typeof courseOrModule === "string") {
-      this.course = courseOrModule;
-    }
-
-    if (typeof courseOrModule === "number") {
-      this.module = courseOrModule;
-    }
-
-    if (module) {
-      this.module = module;
-    }
-    this.changeUpdateDate();
-  }
-
-  static createStudents(list: string[], course: string): Student[] {
-    return list.map((name) => new Student(name, course));
-  }
-
-  static createStudentFromPerson(person: Person): Student;
-  static createStudentFromPerson(person: Person, course: string): Student;
-  static createStudentFromPerson(person: Person, course?: string): Student {
-    if (person.age) {
-      if (course) {
-        return new Student(person.name, course, person.age);
-      }
-      return new Student(person.name, person.age);
-    }
-
-    if (course) {
-      return new Student(person.name, course);
-    }
-    return new Student(person.name);
-  }
-
-  static {
-    Student.count = 0;
-  }
-
-  get Info(): string {
-    const info = super.getInfo();
-    if (this.course) {
-      return `${info}, учится на курсе ${this.course}`;
-    }
-
-    return `${info}`;
-  }
-
-  logger(): void {
-    console.log(this);
-  }
+  const result = filterArr([1, 2, 3, 4, 5], [1, 3, 5]);
+  console.log("result: ", result);
 }
 
-// console.log(Student.scholl);
-// const students = Student.createStudents(["Иван", "Алексей", "Ринат"], "3");
-// // console.log("students: ", students);
+{
+  // функция фильтрации
+  type filterArr = <T>(arr: T[], exclude: T[]) => T[];
+  const filterArr: filterArr = (arr, exclude) => {
+    return arr.filter((item) => !exclude.includes(item));
+  };
 
-// const person1: Person = new Person("Петр", 40);
-// console.log("person1: ", person1.getInfo());
-// person1.changeInfo(3);
+  const result = filterArr([1, 2, 3, 4, 5], [1, 3, 5]);
+  console.log("result: ", result);
+}
 
-// const studentPetr: Student = Student.createStudentFromPerson(person1, "Desing");
-// console.log("studentPetr: ", studentPetr);
+{
+  //! Использование generic  внутри type
+  type HttpResponse<T> = {
+    success: boolean;
+    error?: boolean;
+    data?: T[];
+  };
 
-const student2: Student = new Student("Дмитрий", "Frontend", 15);
-console.log("student2: ", student2.getInfo());
+  type product = {
+    id: number;
+    title: string;
+    count: number;
+  };
 
-// const student3: Student = new Student("Артур", 18);
-// student3.changeInfo(2);
+  type person = {
+    name: string;
+    post: string;
+  };
 
-// console.log("student3: ", student3);
+  const response: HttpResponse<product> = {
+    success: true,
+    error: false,
+    data: [
+      {
+        id: 1215,
+        title: "Капуста",
+        count: 10,
+      },
+      {
+        id: 1216,
+        title: "Морковь",
+        count: 12,
+      },
+    ],
+  };
 
-// const student4: Student = new Student("Геннадий", "JS", 18);
-// student4.changeInfo("TS", 3);
-// console.log("student4: ", student4);
+  const response2: HttpResponse<person> = {
+    success: true,
+    data: [
+      {
+        name: "Иван",
+        post: "Кладовщик",
+      },
+      {
+        name: "Петр",
+        post: "Сторож",
+      },
+    ],
+  };
+}
 
-// console.log(Student.count);
+{
+  //!
+  type HttpResponse<T> = {
+    success: boolean;
+    error?: boolean;
+    data?: T;
+  };
+
+  type product = {
+    id: number;
+    title: string;
+    count: number;
+  };
+
+  type person = {
+    name: string;
+    post: string;
+  };
+
+  const response: HttpResponse<product[]> = {
+    success: true,
+    error: false,
+    data: [
+      {
+        id: 1215,
+        title: "Капуста",
+        count: 10,
+      },
+      {
+        id: 1216,
+        title: "Морковь",
+        count: 12,
+      },
+    ],
+  };
+
+  const response2: HttpResponse<person[]> = {
+    success: true,
+    data: [
+      {
+        name: "Иван",
+        post: "Кладовщик",
+      },
+      {
+        name: "Петр",
+        post: "Сторож",
+      },
+    ],
+  };
+
+  const response3: HttpResponse<string> = {
+    success: true,
+    data: "Заказ оформлен",
+  };
+}
+
+{
+  //!
+
+  interface HttpResponseError {
+    success: false;
+    error: string;
+  }
+
+  interface HttpResponseSuccess<T> {
+    success: true;
+    data: T;
+  }
+
+  type HttpResponse<T> = HttpResponseError | HttpResponseSuccess<T>;
+
+  interface product {
+    id: number;
+    title: string;
+    count: number;
+  }
+
+  interface person {
+    name: string;
+    post: string;
+  }
+
+  const response: HttpResponse<product[]> = {
+    success: true,
+    data: [
+      {
+        id: 1215,
+        title: "Капуста",
+        count: 10,
+      },
+      {
+        id: 1216,
+        title: "Морковь",
+        count: 12,
+      },
+    ],
+  };
+
+  const response2: HttpResponse<person[]> = {
+    success: true,
+    data: [
+      {
+        name: "Иван",
+        post: "Кладовщик",
+      },
+      {
+        name: "Петр",
+        post: "Сторож",
+      },
+    ],
+  };
+
+  const response3: HttpResponse<string> = {
+    success: true,
+    data: "Заказ оформлен",
+  };
+}

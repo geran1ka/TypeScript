@@ -1,27 +1,48 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Job_1 = require("./Job");
-const Person_1 = require("./Person");
-const engineer = new Job_1.Job("engineer", 100000);
-const builder = new Job_1.Job("builder", 90000);
-const driver = new Job_1.Job("driver", 80000);
-const developer = new Job_1.Job("developer", 300000);
-console.log(`----------------------------------------`);
-const workerOne = new Person_1.Person("Serg");
-workerOne.work();
-workerOne.job = engineer;
-workerOne.work();
-console.log(`ЗП у workerOne равна ${workerOne.getSalary()} руб.`);
-const workerTwo = new Person_1.Person("Nik", builder);
-workerTwo.work();
-console.log(`ЗП у workerOne равна ${workerTwo.getSalary()} руб.`);
-const workerThree = new Person_1.Person("Tim", driver);
-workerThree.work();
-console.log(`----------------------------------------`);
-workerOne.job = developer;
-workerOne.work();
-workerTwo.job = developer;
-workerTwo.work();
-workerThree.job = developer;
-workerThree.work();
-console.log(`ЗП у workerOne равна ${workerOne.getSalary()} руб.`);
+const Students_1 = require("./Students");
+const students = new Students_1.Students();
+students.add({
+    id: 1,
+    firstname: "Сергей",
+    surname: "Лазаревв",
+    age: 18,
+    year: 2024,
+    specialty: "Певец",
+});
+students.add({
+    id: 2,
+    firstname: "Филлип",
+    surname: "Киркоров",
+    age: 20,
+    year: 2023,
+    specialty: "Музыкант",
+});
+students.add({
+    id: 3,
+    firstname: "Андрей",
+    surname: "Круз",
+    age: 20,
+    year: 2022,
+    specialty: "Писатель",
+});
+students.add({
+    id: 4,
+    firstname: "Екатерина",
+    surname: "Андреева",
+    age: 21,
+    year: 2021,
+    specialty: "Журналист",
+});
+students.add({
+    id: 5,
+    firstname: "Василий",
+    surname: "Маханенко",
+    age: 22,
+    year: 2020,
+    specialty: "Писатель",
+});
+// console.log(students.get(3));
+console.log(students.remove(2));
+console.log(students.get(2));
+console.log(students);

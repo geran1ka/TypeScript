@@ -1,31 +1,53 @@
-import { Job } from "./Job";
-import { Person } from "./Person";
+import { Students } from "./Students";
 
-const engineer = new Job("engineer", 100000);
-const builder = new Job("builder", 90000);
-const driver = new Job("driver", 80000);
-const developer = new Job("developer", 300000);
+const students = new Students();
 
-console.log(`----------------------------------------`);
+students.add({
+  id: 1,
+  firstname: "Сергей",
+  surname: "Лазаревв",
+  age: 18,
+  year: 2024,
+  specialty: "Певец",
+});
 
-const workerOne = new Person("Serg");
-workerOne.work();
-workerOne.job = engineer;
-workerOne.work();
-console.log(`ЗП у workerOne равна ${workerOne.getSalary()} руб.`);
+students.add({
+  id: 2,
+  firstname: "Филлип",
+  surname: "Киркоров",
+  age: 20,
+  year: 2023,
+  specialty: "Музыкант",
+});
 
-const workerTwo = new Person("Nik", builder);
-workerTwo.work();
-console.log(`ЗП у workerOne равна ${workerTwo.getSalary()} руб.`);
+students.add({
+  id: 3,
+  firstname: "Андрей",
+  surname: "Круз",
+  age: 20,
+  year: 2022,
+  specialty: "Писатель",
+});
 
-const workerThree = new Person("Tim", driver);
-workerThree.work();
-console.log(`----------------------------------------`);
+students.add({
+  id: 4,
+  firstname: "Екатерина",
+  surname: "Андреева",
+  age: 21,
+  year: 2021,
+  specialty: "Журналист",
+});
 
-workerOne.job = developer;
-workerOne.work();
-workerTwo.job = developer;
-workerTwo.work();
-workerThree.job = developer;
-workerThree.work();
-console.log(`ЗП у workerOne равна ${workerOne.getSalary()} руб.`);
+students.add({
+  id: 5,
+  firstname: "Василий",
+  surname: "Маханенко",
+  age: 22,
+  year: 2020,
+  specialty: "Писатель",
+});
+
+// console.log(students.get(3));
+console.log(students.remove(2));
+console.log(students.get(2));
+console.log(students);
