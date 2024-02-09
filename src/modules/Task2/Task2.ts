@@ -29,7 +29,14 @@ products.map((item, i): void => {
 });
 
 console.log("-------------------сортировка старт----------------");
-products.sort(AbstractSelling.compare);
+
+console.log(
+  "products[1].compare(products[2]);: ",
+  products[1].compare(products[2])
+);
+
+products.sort((a, b) => a.compare(b));
+
 console.log("-------------------сортировка стоп----------------");
 
 products.map((item, i): void => {

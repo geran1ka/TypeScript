@@ -4,8 +4,6 @@ export class Person {
   private _job?: Job;
   private name: string;
 
-  constructor(name: string);
-  constructor(name: string, job: Job);
   constructor(name: string, job?: Job) {
     this.name = name;
     if (job) {

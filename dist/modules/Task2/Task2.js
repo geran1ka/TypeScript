@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const AbstractSelling_1 = require("./AbstractSelling");
 const CountAbstractSeling_1 = require("./CountAbstractSeling");
 const FixedAbstractSeling_1 = require("./FixedAbstractSeling");
 const Product_1 = require("./Product");
@@ -23,7 +22,8 @@ products.map((item, i) => {
     console.log(`${i + 1}. Итоговая стоимость продукта "${item.product.title}" в количестве ${item.count} составляет ${item.getPrice()}$`);
 });
 console.log("-------------------сортировка старт----------------");
-products.sort(AbstractSelling_1.AbstractSelling.compare);
+console.log("products[1].compare(products[2]);: ", products[1].compare(products[2]));
+products.sort((a, b) => a.compare(b));
 console.log("-------------------сортировка стоп----------------");
 products.map((item, i) => {
     console.log(`${i + 1}. Продукт "${item.product.title}" отсортирован по стоимости --- ${item.getPrice()}$`);

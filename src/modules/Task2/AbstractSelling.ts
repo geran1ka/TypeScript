@@ -27,14 +27,7 @@ export abstract class AbstractSelling {
 
   public abstract getPrice(): number;
 
-  public static compare(
-    first: AbstractSelling,
-    second: AbstractSelling
-  ): number {
-    return first.getPrice() - second.getPrice() > 0
-      ? 1
-      : first.getPrice() - second.getPrice() < 0
-      ? -1
-      : 0;
+  compare(other: AbstractSelling): number {
+    return other.getPrice() - this.getPrice();
   }
 }

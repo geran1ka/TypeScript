@@ -18,12 +18,8 @@ class AbstractSelling {
     set count(value) {
         this.count = value;
     }
-    static compare(first, second) {
-        return first.getPrice() - second.getPrice() > 0
-            ? 1
-            : first.getPrice() - second.getPrice() < 0
-                ? -1
-                : 0;
+    compare(other) {
+        return other.getPrice() - this.getPrice();
     }
 }
 exports.AbstractSelling = AbstractSelling;
