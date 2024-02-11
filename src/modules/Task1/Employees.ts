@@ -1,10 +1,6 @@
-import { Users } from "./User";
+import { User, Users } from "./User";
 
-interface Employe {
-  id: number;
-  firstname: string;
-  surname: string;
-  age: number;
+interface Employe extends User {
   post: string;
 }
 

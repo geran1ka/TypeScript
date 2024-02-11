@@ -24,34 +24,18 @@ class Users {
     sortedName(sortType = "increase") {
         return this._userList.sort((a, b) => {
             if (sortType === "increase") {
-                if (a.surname < b.surname) {
-                    return -1;
-                }
-                if (a.surname > b.surname) {
-                    return 1;
-                }
-                if (a.firstname < b.firstname) {
-                    return -1;
-                }
-                if (a.firstname > b.firstname) {
-                    return 1;
-                }
-                return 0;
+                return a.surname.concat(a.firstname) > b.surname.concat(b.firstname)
+                    ? -1
+                    : a.surname.concat(a.firstname) < b.surname.concat(b.firstname)
+                        ? 1
+                        : 0;
             }
             else {
-                if (a.surname > b.surname) {
-                    return -1;
-                }
-                if (a.surname < b.surname) {
-                    return 1;
-                }
-                if (a.firstname > b.firstname) {
-                    return -1;
-                }
-                if (a.firstname < b.firstname) {
-                    return 1;
-                }
-                return 0;
+                return a.surname.concat(a.firstname) > b.surname.concat(b.firstname)
+                    ? 1
+                    : a.surname.concat(a.firstname) < b.surname.concat(b.firstname)
+                        ? -1
+                        : 0;
             }
         });
     }

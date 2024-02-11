@@ -1,10 +1,6 @@
-import { Users } from "./User";
+import { User, Users } from "./User";
 
-interface Student {
-  id: number;
-  firstname: string;
-  surname: string;
-  age: number;
+interface Student extends User {
   year: number;
   specialty: string;
 }
